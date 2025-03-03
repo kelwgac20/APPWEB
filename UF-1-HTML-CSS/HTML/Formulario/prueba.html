@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-10">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td, th {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1> Rellena el Formulario </h1>
+    <form>
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombreUsuario" name="nombreUsuario" required><br>
+        <label for="fechaNac">Fecha de Nacimiento</label>
+        <input type="date" id="fechaNac" name="fechaNac"> <br>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email"><br>
+        <label for="nivelEstudio">Nivel de Estudio</label>
+        <select name="nivelEstudio" id="nivelEstudio"><br>
+            <option value="basico">Básico</option>
+            <option value="medio">Medio</option>
+            <option value="superior">Superior</option>
+        </select>
+        <label for="nivel_ingles">Nivel de Inglés:</label><br>
+        <input type="number" id="nivel_ingles" name="nivel_ingles" min="0" max="10" required>
+        (0 - Ninguno, 10 - Fluido)
+    </form>
+
+    <button type="submit">Enviar</button>
+</body>
