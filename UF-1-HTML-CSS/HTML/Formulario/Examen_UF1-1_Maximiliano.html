@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td, th {
+            padding: 8px;
+            text-align: left;
+            border: 3px solid #5f280f;
+        }
+    </style>
+</head>
+<body>
+
+    <form>
+        <table>
+            <tr>
+            <center>
+                <h1>Formulario de Inscripción</h1>
+            </center>
+            </tr>
+            <tr>
+                <td><label for="nombre">Nombre:</label></td>
+                <td><input type="text" id="nombre" name="nombre" required></td>
+            </tr>
+            <tr>
+                <td><label for="email">Email:</label></td>
+                <td><input type="email" id="email" name="email" required></td>
+            </tr>
+            <tr>
+                <td><label for="fecha_nacimiento">Fecha de Nacimiento:</label></td>
+                <td><input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required></td>
+            </tr>
+            <tr>
+                <td>Elegir Cursos</td>
+                <td>
+                    <input type="checkbox" name="cursos" value="Python"> Python<br>
+                    <input type="checkbox" name="cursos" value="PHP"> PHP<br>
+                    <input type="checkbox" name="cursos" value="Javascript"> Javascript<br>
+                    <input type="checkbox" name="cursos" value="C++"> C++<br>
+                    <input type="checkbox" name="cursos" value="HTML"> HTML<br>
+                    <input type="checkbox" name="cursos" value="CSS"> CSS<br>
+                    <input type="checkbox" name="cursos" value="Ruby"> Ruby<br>
+                    <input type="checkbox" name="cursos" value="NodeJS"> NodeJS<br>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="nivel_estudio">Nivel de Estudio:</label></td>
+                <td>
+                    <select id="nivel_estudio" name="nivel_estudio" required>
+                        <option value="basico">Básico</option>
+                        <option value="medio">Medio</option>
+                        <option value="superior">Superior</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="nivel_ingles">Nivel de Inglés:</label></td>
+                <td>
+                    <input type="number" id="nivel_ingles" name="nivel_ingles" min="0" max="10" required>
+                    (0 - Ninguno, 10 - Fluido)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <button type="submit">Enviar</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</body>
+</html>
