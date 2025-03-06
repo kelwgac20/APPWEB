@@ -1,24 +1,28 @@
+*{font-family: Arial;}
 .cta-container {
-    background-image: url("003_Fondoycolor/puente.jpg"); /* Imagen de fondo */
-    background-size: cover; /* Ajusta la imagen al contenedor */
-    background-position: center; /* Centra la imagen verticalmente y la coloca en la parte superior */
-    background-repeat: no-repeat; /* No se repite la imagen de fondo */
-    background-attachment: scroll; /* Fondo desplazable con el contenido */
-    text-align: center; /* Alineación del contenido al centro */
-    padding: 60px;
-  }
-  .cta-text {
-    color: #333; /* Color del texto oscuro */
-    font-size: 28px;
-    font-weight: bold;
-  }
-  .cta-button {
-    background-color: #626bb2; /* Color de fondo del botón */
-    color: #fff; /* Color del texto del botón en blanco */
-    padding: 15px 30px; /* Relleno del botón */
-    border: none; /* Sin borde */
-    border-radius: 5px; /* Bordes redondeados */
-    font-size: 20px;
-    cursor: pointer; /* Cambio de cursor al pasar el ratón */
-    text-transform: uppercase; /* Texto en mayúsculas */
+  background-image: url("puente.jpg"); 
+  background-size: cover; /
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  text-align: center; 
+  padding: 60px;
+}
+
+.cta-text {
+  color: #333; 
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.cta-button {
+  background-color: #626bb2;
+  color: #fff; 
+  padding: 15px 30px;
+  border: none; 
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer; 
+  text-transform: uppercase;
+}
   }
