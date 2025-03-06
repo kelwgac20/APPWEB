@@ -5,16 +5,16 @@ body {
     padding: 0;
 }
 h1 {
-    font-size: 24px;
-    color: #963535;
+    font-size: 50px;
+    color: #140b8d;
 }
 .emoji-list {
     list-style: none;
     padding: 0;
 }
 .emoji-list li {
-    font-size: 18px;
-    margin: 10px 0;
+    font-size: 25px;
+    margin: 18px 0;
     position: relative; /* Necesario para ::before */
 }
 .emoji-list li::before {
