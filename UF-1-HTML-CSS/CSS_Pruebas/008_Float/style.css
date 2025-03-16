@@ -1,0 +1,32 @@
+.galeria {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.galeria img {
+    width: 30%; 
+    min-width: 280px; 
+    margin-right: 2%; 
+    margin-bottom: 2%;
+    float: left; 
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+@media (max-width: 1024px) {
+    .galeria img {
+        width: 45%; /* Dos columnas en pantallas medianas */
+        margin-right: 5%; /* Ajustar el margen para mantener el 2% entre las imágenes */
+    }
+}
+
+@media (max-width: 600px) {
+    .galeria img {
+        width: 100%; /* Una columna en pantallas pequeñas */
+        margin-right: 0; /* Eliminar el margen derecho */
+    }
+}

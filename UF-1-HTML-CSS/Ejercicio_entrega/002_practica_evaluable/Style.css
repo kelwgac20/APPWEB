@@ -1,0 +1,119 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #1f1d6e52;
+    color: rgb(70, 24, 177);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo1 img {
+    max-width: 200px;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+footer {
+    background-color: #333;
+    color: rgb(124, 62, 62);
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.presentacion {
+    background-image: url('fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.texto-presentacion {
+    color: white;
+    text-shadow: 2px 2px 5px rgba(190, 115, 115, 0.7);
+}
+
+.texto-presentacion h1 {
+    font-size: 3rem;
+}
+
+.texto-presentacion p {
+    font-size: 1.5rem;
+}
+
+.contacto {
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.contacto form {
+    display: flex;
+    flex-direction: column;
+}
+
+.contacto label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.contacto input,
+.contacto textarea {
+    margin-top: 5px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contacto button {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.contacto button:hover {
+    background-color: #555;
+}
+
+/* Media Queries para dispositivos móviles */
+@media screen and (max-width: 768px) {
+    .texto-presentacion h1 {
+        font-size: 2rem;
+    }
+
+    .texto-presentacion p {
+        font-size: 1rem;
+    }
+}

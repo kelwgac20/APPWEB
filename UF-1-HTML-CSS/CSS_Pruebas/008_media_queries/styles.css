@@ -1,0 +1,189 @@
+/* Reset básico */
+body, h1, p, button {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #164c81;
+}
+
+/* Contenedor flex */
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1321e6;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(18, 145, 25, 0.1);
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+/* Imagen de perfil */
+.profile-image img {
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+    width:110px
+}
+
+/* Información del perfil */
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-name {
+    color: #5c0909;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.profile-description {
+    color: rgb(100, 100, 100);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.profile-button {
+    background-color: hsl(219, 7%, 62%);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.profile-button:hover {
+    background-color: hsla(106, 89%, 58%, 0.493);
+}
+
+/* Media Queries */
+
+/* Móviles (Vertical) */
+@media (max-width: 480px) {
+    .profile-card {
+        background-color: #ff6b6b; /* Rojo */
+    }
+    .profile-name {
+        font-size: 1.2rem;
+    }
+    .profile-description {
+        font-size: 0.8rem;
+    }
+    .profile-button {
+        background-color: #c2e0de; /* Turquesa */
+    }
+}
+
+/* Móviles (Horizontal) */
+@media (min-width: 481px) and (max-width: 767px) {
+    .profile-card {
+        background-color: #4ecdc4; /* Turquesa */
+        flex-direction: row;
+        text-align: left;
+    }
+    .profile-image {
+        margin-right: 1rem;
+    }
+    .profile-info {
+        align-items: flex-start;
+    }
+    .profile-button {
+        background-color: #ffe66d; /* Amarillo */
+    }
+}
+
+/* Tabletas (Vertical) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .profile-card {
+        background-color: #ffe66d; /* Amarillo */
+    }
+    .profile-name {
+        font-size: 2rem;
+    }
+    .profile-description {
+        font-size: 1.2rem;
+    }
+    .profile-button {
+        background-color: #ff6b6b; /* Rojo */
+    }
+}
+
+/* Tabletas (Horizontal) */
+@media (min-width: 1025px) and (max-width: 1279px) {
+    .profile-card {
+        background-color: #1a535c; /* Azul oscuro */
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+    .profile-image {
+        margin-right: 2rem;
+    }
+    .profile-info {
+        align-items: flex-start;
+    }
+    .profile-button {
+        background-color: #ff6b6b; /* Rojo */
+    }
+}
+
+/* Desktops */
+@media (min-width: 1280px) and (max-width: 1919px) {
+    .profile-card {
+        background-color: #4ecdc4; /* Turquesa */
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .profile-name {
+        font-size: 2.5rem;
+    }
+    .profile-description {
+        font-size: 1.5rem;
+    }
+    .profile-button {
+        background-color: #ffe66d; /* Amarillo */
+    }
+}
+
+/* Desktops Muy Grandes */
+@media (min-width: 1920px) {
+    .profile-card {
+        background-color: #ffe66d; /* Amarillo */
+        flex-direction: row;
+        justify-content: space-around;
+        text-align: left;
+    }
+    .profile-image {
+        margin-right: 2rem;
+    }
+    .profile-info {
+        align-items: flex-start;
+    }
+    .profile-button {
+        background-color: #1a535c; /* Azul oscuro */
+    }
+}
+
+/* Retina */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .profile-card {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    .profile-button {
+        border: 2px solid #fff;
+    }
+}
