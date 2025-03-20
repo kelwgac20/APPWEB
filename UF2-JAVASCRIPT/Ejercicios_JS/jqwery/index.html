@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mi primer JQuery</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#saludo').click(function () {
+    $('#saludo').text("Hola mundo.");
+  });
+});
+</script>
+<style>
+* {
+  width: 100%;
+  margin: 0 auto;
+}
+#bloque {
+  width: 500px;
+  margin-top: 20px;
+  border: 1px solid black;
+  padding: 20px;
+}
+#saludo {
+  cursor: pointer;
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<div id="bloque">
+  Tienes ganas de que te salude...<div id="saludo">Pincha para que te salude.</div> pruebalo...
+</div>
+</body>
+</html>
