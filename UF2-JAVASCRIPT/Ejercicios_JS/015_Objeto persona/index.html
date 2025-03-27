@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objeto Persona</title>
+</head>
+<body>
+    <p id="mensaje"></p> <!-- Mensaje antes de los datos -->
+    <hr> <!-- Línea separadora -->
+    <h3>Datos de la persona:</h3>
+    <ul id="lista"></ul>
+    <hr> <!-- Otra línea separadora antes del segundo mensaje -->
+    <p id="mensajeModificado"></p>
+
+    <script>
+        // Definir el objeto persona
+        const persona = {
+            nombre: "Juan",
+            apellido: "Nadie",
+            edad: 50,
+            altura: 1.80,
+            ojos: {
+                izquierdo: "verde",
+                derecho: "azul"
+            }
+        };
+
+        // Función para mostrar datos en la lista
+        function mostrarDatos() {
+            const lista = document.getElementById("lista");
+            lista.innerHTML = "";
+            for (let clave in persona) {
+                if (typeof persona[clave] === "object") {
+                    lista.innerHTML += `<li>${clave}:
+                        <ul>`; // Inicio de la lista anidada
+                    for (let subClave in persona[clave]) {
+                    lista.innerHTML += `<li>${subClave}: ${persona[clave][subClave]}</li>`;
+                    }
+                    lista.innerHTML += `</ul></li>`; // Cierre de la lista anidada
+                } else {
+                    lista.innerHTML += `<li>${clave}: ${persona[clave]}</li>`;
+                }
+            }
+        }
+
+        // Mostrar mensaje original antes de los datos
+        document.getElementById("mensaje").innerText = 
+            `Hola ${persona.nombre} ${persona.apellido}, tu edad es de ${persona.edad} años y mides ${persona.altura} m. 
+            Eres como David Bowie porque tienes el ojo izquierdo ${persona.ojos.izquierdo} y el derecho ${persona.ojos.derecho}. ¡Bienvenido!`;
+
+        // Modificar el objeto
+        persona.nombre = "Carlos";
+        persona.ojos.derecho = "marrón";
+
+        // Mostrar mensaje con cambios después de los datos
+        document.getElementById("mensajeModificado").innerText = 
+            `Hola ${persona.nombre} ${persona.apellido}, ahora tienes el ojo izquierdo ${persona.ojos.izquierdo} y el derecho ${persona.ojos.derecho}. ¡Vaya cambio!`;
+
+        // Mostrar datos en la lista
+        mostrarDatos();
+    </script>
+</body>
+</html>
