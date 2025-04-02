@@ -1,50 +1,49 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestor de Personas</title>
+    <title>Calcular Fechas</title>
 </head>
+
 <body>
-
-    <h2>Agregar Persona</h2>
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre">
-    <label for="fechaNacimiento">Fecha de nacimiento:</label>
-    <input type="date" id="fechaNacimiento">
-    <button onclick="agregarPersona()">Agregar</button>
-
-    <h2>Lista de Personas</h2>
-    <ul id="listaPersonas"></ul>
-
-    <h3>Modificar Persona</h3>
-    <label for="indice">Selecciona persona:</label>
-    <select id="indice"></select>
-    <label for="nuevoNombre">Nuevo Nombre:</label>
-    <input type="text" id="nuevoNombre">
-    <label for="nuevaFechaNacimiento">Nueva Fecha de Nacimiento:</label>
-    <input type="date" id="nuevaFechaNacimiento">
-    <button onclick="modificarPersona()">Modificar</button>
-
+    <h1>Introduce tu fecha de nacimiento</h1>
+    <form action="archivo.php" id="form">
+        <h2>Introduce tu fecha de nacimeinto</h2>
+        <label for="fecha">Fecha de nacimiento:</label>
+        <input type="date" id="fecha" name="fecha" required>
+        <button type="submit" onclick="calcularEdad()">Enviar</button>
+    </form>
+    <h2>Tu edad es: <span id="Edad"></span></h2>
     <script>
-        class Persona { // los nombres de clases sí empiezan a menudo con mayúscula
-           constructor(nombre, edad) { // Método que se aplica en la creación
-               this.nombre = nombre; // Añadimos los atributos al objeto
-               this.edad = edad;
-           }
-           cambio(nuevoNombre, nuevaEdad) { // Setter
-               this.nombre = nuevoNombre;
-               this.edad = nuevaEdad
-           }
-       }
-       // Creamos objetos partiendo de la plantilla (clase) // persona1.edad();
-       const Persona1 = new Persona("Juan", 50);
-       console.log(Persona1); // get
-       const Persona2 = new Persona("Pepe", 30);
-       Persona2.cambio("Mario", 27) // setter
-        document.writer =Persona2;
 
+        //  const fechaItroducida = prompt("Introduce tu fecha de nacimiento (DD/MM/YYYY):");
+
+        function calcularEdad() {
+            
+            const fechaItroducida = document.querySelector("#fecha").value; // 
+            let fechaObjeto = new Date(fechaItroducida);
+            if (isNaN(fechaObjeto.getTime())) { // Comprobar si la fecha es válida
+                alert("Fecha no válida");
+                location.reload();
+            }
+            const fechaActual = new Date();
+            const anoActual = fechaActual.getFullYear(); // Obtener el año actual
+            const anoNacim = fechaObjeto.getFullYear(); // Obtener el año de nacimiento
+            const mesActual = fechaActual.getMonth(); // Obtener el mes actual
+            const mesNacimiento = fechaObjeto.getMonth(); // Obtener el mes de nacimiento
+            const diaActual = fechaActual.getDate(); // Obtener el día actual
+            const diaNacimiento = fechaObjeto.getDate(); // Obtener el día de nacimiento
+            let edad = anoActual - anoNacim; // Calcular la edad
+
+            // si el mes actual, es menor que el mes de nacimiento o si es igual pero el día es menor que el día actual
+            if (mesActual < mesNacimiento || (mesActual === mesNacimiento && diaActual < diaNacimiento)) {
+                edad--; // Restar un año a la edad
+            }
+            document.querySelector("#Edad").innerHTML = edad; // Mostrar la edad en el HTML
+        }
     </script>
-
 </body>
+
 </html>

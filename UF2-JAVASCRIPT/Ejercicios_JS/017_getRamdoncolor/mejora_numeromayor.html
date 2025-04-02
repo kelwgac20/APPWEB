@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayor y Media de Números</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        #result h1 {
+            color: #007bff;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Encuentra el Mayor y la Media</h1>
+    <form id="numberForm">
+        <label for="numbers">Ingresa números separados por comas:</label>
+        <input type="text" id="numbers" name="numbers" required placeholder="Ejemplo: 10, 20, 30">
+        <br><br>
+        <button type="submit">Calcular</button>
+    </form>
+    <div id="result">
+        <h1></h1>
+    </div>
+
+    <script>
+        document.getElementById('numberForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Obtener y procesar los números ingresados
+            const inputValues = document.getElementById('numbers').value;
+            const numberArray = inputValues
+                .split(',')
+                .map(num => parseFloat(num.trim()))
+                .filter(num => !isNaN(num)); // Filtra valores no numéricos
+            
+            if (numberArray.length === 0) {
+                document.querySelector('#result h1').textContent = "Por favor, ingresa al menos un número válido.";
+                return;
+            }
+
+            // Calcular el número mayor y la media
+            const mayor = Math.max(...numberArray);
+            const suma = numberArray.reduce((acc, num) => acc + num, 0);
+            const media = suma / numberArray.length;
+
+            document.querySelector('#result h1').textContent = 
+                `El número mayor es ${mayor} y la media es ${media.toFixed(2)}`;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split </title>
+</head>
+
+<body>
+    <form action="#">
+        <h2> Escribe una frase</h2>
+        <textarea name="frase" id="frase"></textarea>
+        <input type="submit" value="Enviar">
+    </form>
+    <ul>
+
+    </ul>
+    <script>
+        const form = document.querySelector(`form`);
+        const frase = document.querySelector(`#frase`);
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault(); // Evita el envio del formulario
+            const texto = frase.value;
+            const palabras = texto.split(" ");
+            const lista = document.querySelector(`ul`);
+            lista.innerHTML = ""; // Limpiar la lista antes de agregar nuevas palabras
+            palabras.forEach(palabra => {
+                let elementolista = document.createElement(`li`);
+                elementolista.textContent = palabra;
+                lista.appendChild(elementolista);
+
+
+            });
+        })
+    </script>
+
+</body>
+
+</html>

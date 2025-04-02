@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Name Selector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #selectName {
+            background-color: #2196F3;
+        }
+
+        #selectName:hover {
+            background-color: #0b7dda;
+        }
+
+        #result {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #e74c3c;
+        }
+
+        #nameList {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        #nameList li {
+            background-color: #e7e7e7;
+            padding: 8px;
+            margin: 5px;
+            border-radius: 4px;
+            color: #333;
+        }
+
+        .selected {
+            background-color: #ffeb3b;
+            color: #333;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Random Name Selector</h1>
+    <input type="text" id="nombre" placeholder="Enter a name">
+    <button id="addName">Add Name</button>
+    
+    <form id="nameForm">
+        <ul id="nameList"></ul>
+    </form>
+    
+    <button id="selectName">Select Random Name</button>
+    <p id="result"></p>
+
+    <script>
+        // Lista de nombres
+        const nombres = [];
+
+        // Función para agregar un nombre a la lista y mostrarlo
+        function addName() {
+            const nombreInput = document.getElementById('nombre').value;
+            if (nombreInput.trim() !== '') {
+                nombres.push(nombreInput); // Agrega el nombre al array
+                const li = document.createElement('li');
+                li.textContent = nombreInput; // Crea un nuevo <li> con el nombre
+                document.getElementById('nameList').appendChild(li); // Agrega el <li> a la lista
+                document.getElementById('nombre').value = ''; // Limpia el input
+            }
+        }
+
+        // Evento para agregar el nombre al hacer click en el botón
+        document.getElementById('addName').addEventListener('click', addName);
+
+        // Evento para agregar el nombre al presionar la tecla Enter
+        document.getElementById('nombre').addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                addName();
+            }
+        });
+
+        // Función para realizar el sorteo
+        document.getElementById('selectName').addEventListener('click', () => {
+            if (nombres.length > 0) {
+                // Genera un índice aleatorio dentro del array de nombres
+                const indiceAleatorio = Math.floor(Math.random() * nombres.length);
+                const nombreSeleccionado = nombres[indiceAleatorio];
+                document.getElementById('result').textContent = `Selected Name: ${nombreSeleccionado}`;
+                
+                // Resalta el nombre seleccionado en la lista
+                const listItems = document.querySelectorAll('#nameList li');
+                listItems.forEach(item => item.classList.remove('selected'));
+                listItems[indiceAleatorio].classList.add('selected');
+            } else {
+                document.getElementById('result').textContent = 'No names available for the draw.';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayor de dos números</title>
+</head>
+<body>
+    <h1>¿Cuál es el mayor de dos números?</h1>
+    <form id="numberForm">
+        <label for="num1">Ingresa el primer número:</label>
+        <input type="number" id="num1" name="num1" required>
+        <br>
+        <label for="num2">Ingresa el segundo número:</label>
+        <input type="number" id="num2" name="num2" required>
+        <br>
+        <label for="num3">Ingresa el tercer número:</label>
+        <input type="number" id="num3" name="num3" required><br>
+        <button type="submit">Comparar</button>
+        <br>
+    </form>
+    <div id="result">
+        <h1></h1>
+    </div>
+
+    <script>
+        document.getElementById('numberForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            const mayor = Math.max(num1, num2);
+            document.querySelector('#result h1').textContent = 
+                `Has ingresado los números ${num1} y ${num2} y el mayor es el ${mayor}`;
+        });
+    </script>
+</body>
+</html>

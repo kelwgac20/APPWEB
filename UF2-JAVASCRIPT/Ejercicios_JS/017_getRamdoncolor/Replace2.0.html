@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reemplazar Palabra</title>
+</head>
+<body>
+    <h2>Introduce una frase:</h2>
+    <input type="text" id="fraseUsuario" placeholder="Escribe aquí tu frase">
+    <button id="guardarFrase">Guardar Frase</button>
+    
+    <h1 id="texto">Aquí aparecerá tu frase</h1>
+    
+    <form action="#">
+        <h2>Escriba la palabra a reemplazar</h2>
+        <input type="text" name="palabraReemplazar" id="palabraReemplazar">
+        <h2>Escriba la palabra de reemplazo</h2>
+        <input type="text" name="palabraReemplazo" id="palabraReemplazo">
+        <br><br>
+        <button type="submit" id="cambiarPalabra">Cambio de palabra</button>
+    </form>
+    
+    <button id="boton">Corrige la cabecera de este sitio</button>
+    
+    <script>
+        document.getElementById("guardarFrase").addEventListener("click", function() {
+            let fraseUsuario = document.getElementById("fraseUsuario").value;
+            if (fraseUsuario) {
+                document.getElementById("texto").textContent = fraseUsuario;
+            }
+        });
+        
+        document.getElementById("cambiarPalabra").addEventListener("click", function(event) {
+            event.preventDefault();
+            let textoElemento = document.getElementById("texto");
+            let textoActual = textoElemento.textContent;
+            
+            let palabraReemplazar = document.getElementById("palabraReemplazar").value;
+            let palabraNueva = document.getElementById("palabraReemplazo").value;
+            
+            if (palabraReemplazar && palabraNueva) {
+                let nuevoTexto = textoActual.replace(new RegExp(palabraReemplazar, 'g'), palabraNueva);
+                textoElemento.textContent = nuevoTexto;
+            }
+        });
+        
+        document.getElementById("boton").addEventListener("click", function() {
+            let textoElemento = document.getElementById("texto");
+            textoElemento.textContent = "Cabecera corregida";
+        });
+    </script>
+</body>
+</html>

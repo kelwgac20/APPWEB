@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Replace</title>
+</head>
+<body>
+    <h1 id="texto">Esta es una frase de ejemplo</h1>
+    
+    <form action="#">
+        <h2>Escriba la palabra a reemplazar</h2>
+        <input type="text" name="palabraReemplazar" id="palabraReemplazar">
+        <h2>Escriba la palabra de reemplazo</h2>
+        <input type="text" name="palabraReemplazo" id="palabraReemplazo">
+        <br><br>
+        <button type="submit" id="cambiarPalabra">Cambio de palabra</button>
+    </form>
+    
+    <button id="boton">Corrige la cabecera de este sitio</button>
+    
+    <script>
+        document.getElementById("cambiarPalabra").addEventListener("click", function(event) {
+            event.preventDefault();
+            let textoElemento = document.getElementById("texto");
+            let textoActual = textoElemento.textContent;
+            
+            let palabraReemplazar = document.getElementById("palabraReemplazar").value;
+            let palabraNueva = document.getElementById("palabraReemplazo").value;
+            
+            if (palabraReemplazar && palabraNueva) {
+                let nuevoTexto = textoActual.replace(new RegExp(palabraReemplazar, 'g'), palabraNueva);
+                textoElemento.textContent = nuevoTexto;
+            }
+        });
+        
+        document.getElementById("boton").addEventListener("click", function() {
+            let textoElemento = document.getElementById("texto");
+            textoElemento.textContent = "Cabecera corregida";
+        });
+    </script>
+</body>
+
+</html>

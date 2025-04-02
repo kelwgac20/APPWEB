@@ -1,44 +1,73 @@
 // Referencias a los elementos
 const nombreEstudiante = document.getElementById("nombreEstudiante");
 const matriculaEstudiante = document.getElementById("matriculaEstudiante");
-const infoEstudiante = document.getElementById("infoEstudiante");
 const btnAgregar = document.getElementById("agregarMateria");
+const btnCambiar = document.getElementById("cambiarAlumno");
 const materiasContainer = document.getElementById("materiasContainer");
-const listaMaterias = document.getElementById("listaMaterias");
-const resultado = document.getElementById("resultado");
+const historialAlumnos = document.getElementById("historialAlumnos");
 
-// Función para actualizar la lista y el promedio
-function actualizarDatos() {
-    // Mostrar nombre y matrícula
-    if (nombreEstudiante.value.trim() !== "" && matriculaEstudiante.value.trim() !== "") {
-        infoEstudiante.textContent = `Estudiante: ${nombreEstudiante.value} | Matrícula: ${matriculaEstudiante.value}`;
-    } else {
-        infoEstudiante.textContent = "";
-    }
+let alumnos = [];
 
-    // Actualizar materias y promedio
+// Función para calcular el promedio
+function calcularPromedio() {
     let materias = document.querySelectorAll(".materia");
-    listaMaterias.innerHTML = "";
-
     let sumaNotas = 0;
     let cantidadNotas = 0;
 
     materias.forEach(materia => {
-        let nombre = materia.children[0].value.trim();
         let nota = parseFloat(materia.children[1].value);
-
-        if (nombre !== "" && !isNaN(nota)) {
-            let li = document.createElement("li");
-            li.textContent = `${nombre}: ${nota}`;
-            listaMaterias.appendChild(li);
+        if (!isNaN(nota)) {
             sumaNotas += nota;
             cantidadNotas++;
         }
     });
 
-    let promedio = cantidadNotas > 0 ? (sumaNotas / cantidadNotas).toFixed(2) : "-";
-    resultado.textContent = `Promedio: ${promedio}`;
+    return cantidadNotas > 0 ? (sumaNotas / cantidadNotas).toFixed(2) : "-";
 }
+
+// Función para guardar el alumno y cambiar de estudiante
+btnCambiar.addEventListener("click", function() {
+    let nombre = nombreEstudiante.value.trim();
+    let matricula = matriculaEstudiante.value.trim();
+    
+    if (nombre === "" || matricula === "") {
+        alert("Ingrese nombre y matrícula del estudiante.");
+        return;
+    }
+
+    let promedio = calcularPromedio();
+    let materias = [];
+
+    document.querySelectorAll(".materia").forEach(materia => {
+        let materiaNombre = materia.children[0].value.trim();
+        let nota = parseFloat(materia.children[1].value);
+
+        if (materiaNombre !== "" && !isNaN(nota)) {
+            materias.push(`${materiaNombre}: ${nota}`);
+        }
+    });
+
+    if (materias.length === 0) {
+        alert("Ingrese al menos una materia antes de cambiar de alumno.");
+        return;
+    }
+
+    // Guardar datos del alumno en la lista
+    alumnos.push({ nombre, matricula, materias, promedio });
+
+    // Agregar al historial de alumnos
+    let li = document.createElement("li");
+    li.innerHTML = `<strong>${nombre} (Matrícula: ${matricula})</strong> - Promedio: ${promedio} <br> Materias: ${materias.join(", ")}`;
+    historialAlumnos.appendChild(li);
+
+    // Reiniciar los campos para un nuevo alumno
+    nombreEstudiante.value = "";
+    matriculaEstudiante.value = "";
+    materiasContainer.innerHTML = `<div class="materia">
+        <input type="text" class="materiaNombre" placeholder="Nombre de la materia" required>
+        <input type="number" class="materiaNota" min="0" max="10" placeholder="Nota" required>
+    </div>`;
+});
 
 // Evento para agregar materias dinámicamente con validación
 btnAgregar.addEventListener("click", function() {
@@ -58,7 +87,6 @@ btnAgregar.addEventListener("click", function() {
     inputMateria.classList.add("materiaNombre");
     inputMateria.placeholder = "Nombre de la materia";
     inputMateria.required = true;
-    inputMateria.addEventListener("input", actualizarDatos);
 
     let inputNota = document.createElement("input");
     inputNota.type = "number";
@@ -67,12 +95,9 @@ btnAgregar.addEventListener("click", function() {
     inputNota.max = "10";
     inputNota.placeholder = "Nota";
     inputNota.required = true;
-    inputNota.addEventListener("input", actualizarDatos);
 
     div.appendChild(inputMateria);
     div.appendChild(inputNota);
     materiasContainer.appendChild(div);
 });
 
-// Evento para actualizar datos en tiempo real
-document.addEventListener("input", actualizarDatos);

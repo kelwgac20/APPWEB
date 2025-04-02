@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Promedio</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
     <h2>Calculadora de Promedio</h2>
 
@@ -16,7 +14,6 @@
         <input type="text" id="matriculaEstudiante" placeholder="Número de matrícula" required>
 
         <div id="materiasContainer">
-            <!-- Materia inicial -->
             <div class="materia">
                 <input type="text" class="materiaNombre" placeholder="Nombre de la materia" required>
                 <input type="number" class="materiaNota" min="0" max="10" placeholder="Nota" required>
@@ -24,14 +21,12 @@
         </div>
 
         <button type="button" id="agregarMateria">Agregar Materia</button>
+        <button type="button" id="cambiarAlumno">Cambiar Alumno</button>
     </form>
 
-    <h3 id="infoEstudiante"></h3>
-    <h3>Materias ingresadas:</h3>
-    <ul id="listaMaterias"></ul>
-    <h3 id="resultado">Promedio: -</h3>
+    <h3>Historial de Alumnos:</h3>
+    <ul id="historialAlumnos"></ul>
 
     <script src="main.js"></script>
 </body>
-
 </html>
