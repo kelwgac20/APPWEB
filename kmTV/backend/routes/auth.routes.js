@@ -1,13 +1,13 @@
-// routes/auth.routes.js
 import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import prisma from '../prisma/client.js';
 import admin from '../firebase/firebase-admin.js';
+import { verifyToken, verifyAdmin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-// Ruta para registrar usuario
+// Registro de usuario
 router.post('/register', async (req, res) => {
   const { username, password, confirmPassword, email } = req.body;
 
@@ -16,14 +16,12 @@ router.post('/register', async (req, res) => {
   }
 
   try {
-    // Crear usuario en Firebase
     const userRecord = await admin.auth().createUser({
       email: email || `${username}@kmtv.fake`,
       password,
       displayName: username,
     });
 
-    // Guardar usuario en PostgreSQL
     await prisma.user.create({
       data: {
         username,
@@ -40,25 +38,19 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Ruta para login
+// Login para usuarios autorizados
 router.post('/login', async (req, res) => {
   const { firebaseUid } = req.body;
 
   try {
     const user = await prisma.user.findUnique({ where: { firebaseUid } });
 
-    if (!user) {
-      return res.status(404).json({ message: 'Usuario no encontrado.' });
-    }
-
+    if (!user) return res.status(404).json({ message: 'Usuario no encontrado.' });
     if (user.status !== 'autorizado') {
       return res.status(403).json({ message: 'Tu cuenta aún no ha sido autorizada.' });
     }
 
-    const token = jwt.sign({ uid: user.firebaseUid }, process.env.JWT_SECRET, {
-      expiresIn: '12h',
-    });
-
+    const token = jwt.sign({ uid: user.firebaseUid }, process.env.JWT_SECRET, { expiresIn: '12h' });
     res.json({ token });
   } catch (error) {
     console.error('Error al iniciar sesión:', error.message);
@@ -66,22 +58,20 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Ruta protegida: login de administrador
+// Login de administrador
 router.post('/admin/login', async (req, res) => {
   const { password } = req.body;
 
   if (password === process.env.ADMIN_SECRET) {
-    const token = jwt.sign({ admin: true }, process.env.JWT_SECRET, {
-      expiresIn: '4h',
-    });
+    const token = jwt.sign({ admin: true }, process.env.JWT_SECRET, { expiresIn: '4h' });
     return res.json({ token });
   }
 
   res.status(401).json({ message: 'Contraseña de administrador incorrecta.' });
 });
 
-// Ruta protegida: listar usuarios pendientes
-router.get('/admin/pending', async (req, res) => {
+// Listar usuarios pendientes (protegido)
+router.get('/admin/pending', verifyAdmin, async (req, res) => {
   try {
     const pendingUsers = await prisma.user.findMany({
       where: { status: 'pendiente' },
@@ -94,8 +84,8 @@ router.get('/admin/pending', async (req, res) => {
   }
 });
 
-// Ruta protegida: autorizar usuario
-router.post('/admin/authorize', async (req, res) => {
+// Autorizar usuario (protegido)
+router.post('/admin/authorize', verifyAdmin, async (req, res) => {
   const { userId } = req.body;
 
   try {
@@ -110,8 +100,8 @@ router.post('/admin/authorize', async (req, res) => {
   }
 });
 
-// Ruta protegida: crear usuario manualmente (desde panel admin)
-router.post('/admin/create', async (req, res) => {
+// Crear usuario manualmente desde el panel admin (protegido)
+router.post('/admin/create', verifyAdmin, async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
