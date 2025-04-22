@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio de Sesión con localStorage</title>
+  <script defer src="main.js"></script>
+</head>
+<body>
+  <h1 id="titulo">Bienvenido</h1>
+
+  <div id="formulario">
+    <input type="text" id="nombreUsuario" placeholder="Ingresa tu nombre">
+    <button onclick="iniciarSesion()">Iniciar sesión</button>
+  </div>
+
+  <div id="panel" style="display: none;">
+    <p id="mensaje"></p>
+    <button onclick="cerrarSesion()">Cerrar sesión</button>
+  </div>
+</body>
+</html>
