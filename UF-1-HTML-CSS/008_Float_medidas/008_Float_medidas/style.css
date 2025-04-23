@@ -1,0 +1,10 @@
+.galeria{
+    width:100%;
+    text-align: center;
+}
+
+img{
+   width:30%;
+   min-width: 400px;
+   margin: 0px;
+}
