@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contacto</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+  <header>
+    <h1>Formulario de Contacto</h1>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="galeria.html">Galería</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+  <main>
+    <form action="https://formspree.io/f/mnqkyzyr" method="POST">
+      <label>Nombre:
+        <input type="text" name="nombre" required />
+      </label>
+      <label>Email:
+        <input type="email" name="email" required />
+      </label>
+      <label>Mensaje:
+        <textarea name="mensaje" required></textarea>
+      </label>
+      <button type="submit">Enviar</button>
+    </form>
+  </main>
+  <footer>
+    <p>&copy; 2024 - Escribe cuando quieras</p>
+  </footer>
+</body>
+</html>
