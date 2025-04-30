@@ -38,6 +38,23 @@ exports.register = async (req, res) => {
   }
 };
 
+export const updateUserRole = async (req, res) => {
+  const { uid } = req.params;
+  const { newRole } = req.body;
+
+  try {
+    const updated = await prisma.user.update({
+      where: { uid },
+      data: { role: newRole }
+    });
+
+    res.json({ message: 'Rol actualizado', user: updated });
+  } catch (error) {
+    console.error('Error al actualizar el rol:', error);
+    res.status(500).json({ error: 'Error al actualizar el rol' });
+  }
+};
+
 // Iniciar sesión y emitir token solo si el usuario está autorizado
 exports.login = async (req, res) => {
   const { firebaseToken } = req.body;

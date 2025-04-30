@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from './firebase';
-import logo from './assets/logo.png';
 
+// Importación de componentes y páginas
+import logo from './assets/logo.png';
 import LoadPlaylist from './LoadPlaylist';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import AdminPage from './pages/AdminPage';
+import RoleProtectedRoute from './components/RoleProtectedRoute';
+import AdminUsuariosPendientes from './pages/AdminUsuariosPendientes';
+import PlayerTest from './pages/PlayerTest';
 
+// Pantalla de introducción (Splash Screen)
 function SplashScreen() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-black">
@@ -19,7 +25,7 @@ function SplashScreen() {
   );
 }
 
-// 🔐 Ruta protegida para usuarios autenticados
+// Ruta protegida básica
 function PrivateRoute({ user, children }) {
   return user ? children : <Navigate to="/login" />;
 }
@@ -30,17 +36,17 @@ function App() {
   const [loadingAuth, setLoadingAuth] = useState(true);
   const navigate = useNavigate();
 
-  // Evitar mostrar la intro por más tiempo de lo necesario
+  // Mostrar splash screen al inicio
   useEffect(() => {
     const timer = setTimeout(() => setShowIntro(false), 4000);
     return () => clearTimeout(timer);
   }, []);
 
-  // Verificar el estado de autenticación
+  // Escuchar autenticación con Firebase
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser);
-      setLoadingAuth(false); // Ahora se marca como cargado solo cuando el auth state cambia
+      setLoadingAuth(false);
     });
     return () => unsubscribe();
   }, []);
@@ -49,30 +55,35 @@ function App() {
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        console.log("👋 Usuario cerrado sesión");
-        navigate('/login'); // Redirige a login después de cerrar sesión
+        console.log("👋 Usuario cerró sesión");
+        navigate('/login');
       })
       .catch((error) => {
         console.error("Error al cerrar sesión:", error);
       });
   };
 
-  // Mostrar loading mientras se verifica la autenticación
-  if (loadingAuth) return (
-    <div className="min-h-screen bg-black text-white flex justify-center items-center">
-      Cargando...
-    </div>
-  );
+  // Mientras carga autenticación
+  if (loadingAuth) {
+    return (
+      <div className="min-h-screen bg-black text-white flex justify-center items-center">
+        Cargando...
+      </div>
+    );
+  }
 
-  // Mostrar la intro solo cuando el usuario aún no esté autenticado
+  // Mostrar pantalla de introducción
   if (showIntro) return <SplashScreen />;
+
+  // Ruta por defecto según estado del usuario
+  const defaultRoute = user ? "/cargar" : "/login";
 
   return (
     <div>
-      {/* Botón para cerrar sesión */}
+      {/* Botón de cerrar sesión si está autenticado */}
       {user && (
         <button
-          className="p-2 bg-red-600 text-white rounded-md absolute top-4 right-4"
+          className="p-2 bg-red-600 text-white rounded-md absolute top-4 right-4 z-50"
           onClick={handleSignOut}
         >
           Cerrar sesión
@@ -88,12 +99,26 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/admin"
+          element={
+            <RoleProtectedRoute requiredRole="admin">
+              <AdminPage />
+            </RoleProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/usuarios"
+          element={
+            <RoleProtectedRoute requiredRole="admin">
+              <AdminUsuariosPendientes />
+            </RoleProtectedRoute>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route
-          path="*"
-          element={<Navigate to={user ? "/cargar" : "/login"} />}
-        />
+        <Route path="/test" element={<PlayerTest />} />
+        <Route path="*" element={<Navigate to={defaultRoute} />} />
       </Routes>
     </div>
   );

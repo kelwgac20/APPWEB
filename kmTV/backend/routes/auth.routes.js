@@ -28,6 +28,7 @@ router.post('/register', async (req, res) => {
         email: email || null,
         firebaseUid: userRecord.uid,
         status: 'pendiente',
+        role: 'cliente', // rol por defecto
       },
     });
 
@@ -50,7 +51,12 @@ router.post('/login', async (req, res) => {
       return res.status(403).json({ message: 'Tu cuenta aún no ha sido autorizada.' });
     }
 
-    const token = jwt.sign({ uid: user.firebaseUid }, process.env.JWT_SECRET, { expiresIn: '12h' });
+    const token = jwt.sign(
+      { uid: user.firebaseUid, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '12h' }
+    );
+
     res.json({ token });
   } catch (error) {
     console.error('Error al iniciar sesión:', error.message);
@@ -117,12 +123,55 @@ router.post('/admin/create', verifyAdmin, async (req, res) => {
         email,
         firebaseUid: userRecord.uid,
         status: 'autorizado',
+        role: 'cliente', // se puede cambiar desde el panel
       },
     });
 
     res.status(201).json({ message: 'Usuario creado y autorizado por el admin.' });
   } catch (error) {
     res.status(500).json({ message: 'Error al crear usuario.' });
+  }
+});
+
+// Obtener todos los usuarios (protegido, solo admin)
+router.get('/users', verifyToken, verifyAdmin, async (req, res) => {
+  try {
+    const users = await prisma.user.findMany({
+      select: {
+        firebaseUid: true,
+        username: true,
+        email: true,
+        role: true,
+        status: true
+      }
+    });
+
+    res.json(users);
+  } catch (error) {
+    console.error('Error al obtener usuarios:', error.message);
+    res.status(500).json({ message: 'Error al obtener usuarios.' });
+  }
+});
+
+// Cambiar el rol de un usuario (protegido, solo admin)
+router.put('/role/:uid', verifyToken, verifyAdmin, async (req, res) => {
+  const { uid } = req.params;
+  const { newRole } = req.body;
+
+  if (!['admin', 'cliente'].includes(newRole)) {
+    return res.status(400).json({ message: 'Rol no válido.' });
+  }
+
+  try {
+    const updatedUser = await prisma.user.update({
+      where: { firebaseUid: uid },
+      data: { role: newRole },
+    });
+
+    res.json({ message: 'Rol actualizado correctamente.', updatedUser });
+  } catch (error) {
+    console.error('Error al actualizar el rol:', error.message);
+    res.status(500).json({ message: 'Error al actualizar el rol.' });
   }
 });
 

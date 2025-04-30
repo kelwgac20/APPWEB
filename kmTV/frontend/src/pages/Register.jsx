@@ -1,8 +1,7 @@
 // src/pages/Register.jsx
 import React, { useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase';
 import { useNavigate, Link } from 'react-router-dom';
+import { registerUser } from '../services/authService'; // usamos el servicio nuevo
 import logo from '../assets/logo.png';
 
 const Register = () => {
@@ -14,15 +13,19 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setError('');
+
     if (password !== confirm) {
       setError('Las contraseñas no coinciden.');
       return;
     }
+
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      await registerUser(email, password); // llamamos al nuevo servicio
       navigate('/cargar');
     } catch (err) {
-      setError('Error al crear la cuenta. Inténtalo con otro correo.');
+      console.error("Error en el registro:", err);
+      setError('Error al crear la cuenta. Intenta con otro correo.');
     }
   };
 

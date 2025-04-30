@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Galería</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .galeria {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .galeria img {
+      width: calc(50% - 0.5rem);
+      height: auto;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+    }
+    @media (max-width: 600px) {
+      .galeria img {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Nuestra Galería</h1>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="galeria.html">Galería</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+  <main>
+    <section class="galeria">
+      <img src="imagen/1.png" alt="Foto 1" />
+      <img src="imagen/2.png" alt="Foto 2" />
+      <img src="imagen/3.png" alt="Foto 3" />
+      <img src="imagen/4.png" alt="Foto 4" />
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 - Max_Design Studios</p>
+  </footer>
+</body>
+</html>

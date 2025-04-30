@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contacto</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Formulario de Contacto</h1>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="galeria.html">Galería</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+  <main class="container">
+    <section style="flex: 2;">
+      <div id="error" style="color: red;"></div>
+      <form id="contactForm">
+        <label>Nombre:
+          <input type="text" name="nombre" id="nombre" required />
+        </label><br>
+        <label>Fecha de nacimiento:
+          <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" required />
+        </label><br>
+        <label>Estudios:
+          <select name="estudios" id="estudios" required>
+            <option value="">Seleccione una opción</option>
+            <option value="bachillerato">Bachillerato</option>
+            <option value="grado_medio">Grado Medio</option>
+            <option value="grado_superior">Grado Superior</option>
+          </select>
+        </label><br><br>
+        <button type="submit">Enviar</button>
+      </form>
+      <div id="bienvenida" style="display: none; font-size: 1.2rem; color: green;">
+        Bienvenido a Max_Desing Studios.
+      </div>
+    </section>
+    <aside id="infoUsuario">
+      <!-- Aquí se mostrarán los datos si es mayor de edad -->
+    </aside>
+  </main>
+  <footer>
+    <p>&copy; 2025 - Max_Design Studios</p>
+  </footer>
+  <script src="contacto.js"></script>
+</body>
+</html>
